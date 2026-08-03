@@ -21,10 +21,12 @@ import
   stew/byteutils,
   stint,
   libp2p/crypto/crypto as libp2p_crypto,
+  libp2p/crypto/rng,
   libp2p/crypto/secp,
   libp2p/signed_envelope,
   metrics,
   nimcrypto,
+  pkg/protobuf_serialization,
   pkg/results,
   "."/[messages, messages_encoding, node, spr, hkdf, sessions],
   "."/crypto
@@ -315,7 +317,7 @@ proc encodeHandshakePacket*(rng: var HmacDrbgContext, c: var Codec,
 
   authdataHead.add(c.localNode.id.toBytesBE())
 
-  let ephKeys = ? KeyPair.random(PKScheme.Secp256k1, rng)
+  let ephKeys = ? KeyPair.random(PKScheme.Secp256k1, newRng())
                     .mapErr((e: CryptoError) =>
                       ("Failed to create random key pair: " & $e).cstring)
 
@@ -343,8 +345,7 @@ proc encodeHandshakePacket*(rng: var HmacDrbgContext, c: var Codec,
 
   # Add SPR of sequence number is newer
   if whoareyouData.recordSeq < c.localNode.record.seqNum:
-    let encoded = ? c.localNode.record.encode.mapErr((e: CryptoError) =>
-                    ("Failed to encode local node's SignedPeerRecord: " & $e).cstring)
+    let encoded = c.localNode.record.encode
     authdata.add(encoded)
 
   let secrets = ? deriveKeys(

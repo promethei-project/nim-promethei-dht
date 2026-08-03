@@ -2,7 +2,23 @@ import
   ../discv5/[node],
   libp2p/[routing_record, signed_envelope],
   libp2p/protobuf/minprotobuf,
+  pkg/protobuf_serialization,
   ./providers_messages
+
+proc getField*[T](
+    pb: ProtoBuffer, field: int, value: var SignedPayload[T]
+): ProtoResult[bool] {.inline.} =
+  ## Read a ``SignedPayload`` from ProtoBuf's message and validate it
+  var buffer: seq[byte]
+  let res = ?pb.getField(field, buffer)
+  if not res:
+    ok(false)
+  else:
+    let decoded = SignedPayload[T].decode(buffer)
+    if decoded.isErr:
+      return err(ProtoError.IncorrectBlob)
+    value = decoded.get
+    ok(true)
 
 func getField*(pb: ProtoBuffer, field: int,
                nid: var NodeId): ProtoResult[bool] {.inline.} =
@@ -19,7 +35,7 @@ func write*(pb: var ProtoBuffer, field: int, nid: NodeId) =
   ## Write NodeId value ``nodeid`` to object ``pb`` using ProtoBuf's encoding.
   write(pb, field, nid.toBytesBE())
 
-func getField*(pb: ProtoBuffer, field: int,
+proc getField*(pb: ProtoBuffer, field: int,
                pr: var PeerRecord): ProtoResult[bool] {.inline.} =
   ## Read ``NodeId`` from ProtoBuf's message and validate it
   var buffer: seq[byte]
@@ -37,10 +53,10 @@ func getField*(pb: ProtoBuffer, field: int,
 func write*[T: SignedPeerRecord | PeerRecord | Envelope](
     pb: var ProtoBuffer,
     field: int,
-    env: T) {.raises: [Defect, ResultError[CryptoError]].} =
+    env: T) {.raises: [Defect].} =
 
   ## Write Envelope value ``env`` to object ``pb`` using ProtoBuf's encoding.
-  let encoded = env.encode().tryGet()
+  let encoded = env.encode()
   write(pb, field, encoded)
 
 proc getRepeatedField*(pb: ProtoBuffer, field: int,
