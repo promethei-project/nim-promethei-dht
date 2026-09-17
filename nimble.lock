@@ -234,7 +234,7 @@
     "kvstore": {
       "version": "0.1.0",
       "vcsRevision": "092e262b5d85ba4420bf015da09e568845477ff6",
-      "url": "https://github.com/durability-labs/nim-kvstore",
+      "url": "https://github.com/promethei-project/nim-kvstore",
       "downloadMethod": "git",
       "dependencies": [
         "asynctest",

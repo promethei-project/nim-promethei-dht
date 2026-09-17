@@ -7,11 +7,11 @@ import pkg/kvstore
 import pkg/taskpools
 from pkg/libp2p import PeerId
 
-import archivistdht/private/eth/p2p/discoveryv5/spr
-import archivistdht/private/eth/p2p/discoveryv5/providers
-import archivistdht/discv5/node
-import archivistdht/private/eth/p2p/discoveryv5/lru
-import archivistdht/private/eth/p2p/discoveryv5/random2
+import prometheidht/private/eth/p2p/discoveryv5/spr
+import prometheidht/private/eth/p2p/discoveryv5/providers
+import prometheidht/discv5/node
+import prometheidht/private/eth/p2p/discoveryv5/lru
+import prometheidht/private/eth/p2p/discoveryv5/random2
 import ./test_helper
 
 suite "Test Providers Manager simple":

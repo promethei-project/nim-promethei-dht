@@ -5,10 +5,10 @@ import
   chronos, chronicles, stint, asynctest/chronos/unittest2, 
   stew/byteutils, bearssl/rand,
   libp2p/crypto/crypto,
-  archivistdht/discv5/[transport, spr, node, routing_table, encoding, sessions, nodes_verification],
-  archivistdht/discv5/crypto as dhtcrypto,
-  archivistdht/discv5/protocol as discv5_protocol,
-  archivistdht/private/eth/p2p/discoveryv5/random2,
+  prometheidht/discv5/[transport, spr, node, routing_table, encoding, sessions, nodes_verification],
+  prometheidht/discv5/crypto as dhtcrypto,
+  prometheidht/discv5/protocol as discv5_protocol,
+  prometheidht/private/eth/p2p/discoveryv5/random2,
   ../dht/test_helper
 
 suite "Discovery v5 Tests":

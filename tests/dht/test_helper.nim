@@ -4,9 +4,9 @@ import
   libp2p/crypto/[crypto, secp],
   libp2p/crypto/rng as libp2p_rng,
   libp2p/multiaddress,
-  archivistdht/discv5/[node, routing_table, spr],
-  archivistdht/discv5/protocol as discv5_protocol,
-  archivistdht/private/eth/p2p/discoveryv5/random2
+  prometheidht/discv5/[node, routing_table, spr],
+  prometheidht/discv5/protocol as discv5_protocol,
+  prometheidht/private/eth/p2p/discoveryv5/random2
 
 proc localAddress*(port: int): Address =
   Address(ip: parseIpAddress("127.0.0.1"), port: Port(port))

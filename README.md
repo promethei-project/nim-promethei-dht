@@ -1,10 +1,10 @@
-# A DHT implementation for Archivist
+# A DHT implementation for Promethei
 
 [![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Stability: experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](#stability)
 
-This DHT implementation is aiming to provide a DHT for Archivist with the following properties
+This DHT implementation is aiming to provide a DHT for Promethei with the following properties
 * flexible secure transport usage with
   * fast UDP based operation
   * eventual fallback to TCP-based operation (maybe though libp2p)

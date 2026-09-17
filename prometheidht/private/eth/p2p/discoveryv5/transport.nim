@@ -43,14 +43,14 @@ type
     pendingRequestsByNode: Table[NodeId, seq[seq[byte]]]
     codec*: Codec
     rng: ref HmacDrbgContext
-    when defined(archivist_system_testing_options):
+    when defined(promethei_system_testing_options):
       sendFailProb*: int
 
   PendingRequest = object
     node: Node
     message: seq[byte]
 
-when defined(archivist_system_testing_options):
+when defined(promethei_system_testing_options):
   proc sendFails(t: Transport): bool =
     if t.sendFailProb == 0:
       return false
@@ -60,7 +60,7 @@ when defined(archivist_system_testing_options):
     return r == 0
 
 proc sendToA(t: Transport, a: Address, msg: seq[byte]) =
-  when defined(archivist_system_testing_options):
+  when defined(promethei_system_testing_options):
     if t.sendFails():
       trace "System testing options: Sent packet was lost", myport = t.bindAddress.port, address = a
       return

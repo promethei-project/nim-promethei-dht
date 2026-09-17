@@ -4,12 +4,12 @@ import
   chronos,
   bearssl/rand,
   asynctest/chronos/unittest2,
-  archivistdht/discv5/protocol as discv5_protocol,
-  archivistdht/discv5/routing_table,
-  archivistdht/private/eth/p2p/discoveryv5/random2,
+  prometheidht/discv5/protocol as discv5_protocol,
+  prometheidht/discv5/routing_table,
+  prometheidht/private/eth/p2p/discoveryv5/random2,
   ../dht/test_helper
 
-suite "Archivist system testing options Tests":
+suite "Promethei system testing options Tests":
   var
     rng: ref HmacDrbgContext
     node1: discv5_protocol.Protocol
@@ -26,7 +26,7 @@ suite "Archivist system testing options Tests":
     await node1.closeWait()
     await node2.closeWait()
 
-  when defined(archivist_system_testing_options):
+  when defined(promethei_system_testing_options):
     proc nodesPingEachOther() {.async.} =
       # we ping each way twice to make sure if the nodes could discovery each other, they will.
       discard await node1.ping(node2.localNode)
@@ -54,5 +54,5 @@ suite "Archivist system testing options Tests":
 
   else:
     test "Not compiled with option":
-      debugEcho "These tests should be compiled with '-d:archivist_system_testing_options'"
+      debugEcho "These tests should be compiled with '-d:promethei_system_testing_options'"
       fail()

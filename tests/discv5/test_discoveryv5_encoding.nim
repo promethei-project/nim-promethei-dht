@@ -6,9 +6,9 @@ import
   bearssl/rand,
   chronos,
   libp2p/crypto/secp,
-  archivistdht/discv5/[messages, messages_encoding, encoding, spr, node, sessions],
-  archivistdht/discv5/crypto,
-  archivistdht/private/eth/p2p/discoveryv5/random2,
+  prometheidht/discv5/[messages, messages_encoding, encoding, spr, node, sessions],
+  prometheidht/discv5/crypto,
+  prometheidht/private/eth/p2p/discoveryv5/random2,
   stew/byteutils,
   stint,
   ../dht/test_helper
